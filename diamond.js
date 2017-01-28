@@ -94,11 +94,14 @@ function running(){
     count=18370;
     reduction=0;
     if(income<18370){
-      return(8100);
+      return(reduction);
     } else{
       while (Math.round(count) < income){
         reduction = reduction + 1;
         count = count + 8.821126761;
+      };
+      if (reduction > 8100){
+        reduction = 8100;
       };
       return reduction;
     };
@@ -112,7 +115,7 @@ function running(){
   var stuffOld = ("Currently, you would be eligible for a maintenance grant of £"+ grant +" and a \£" + (6183-loan) + " loan. Your total available manitenance fund is therefore \£" + (grant+(6183-loan)))
   var stuffOld=stuffOld.toString();
   var textOld = document.createTextNode(stuffOld);
-  var textNew = document.createTextNode(". Under the system recommended in the Diamond Review(note: it's implementation is not guaranteed), you would be eligible for a grant of £"+ newAmount + " and a £"+(8100-newAmount)+" loan. Your total eligible maintenance available funds would be £8,100.")
+  var textNew = document.createTextNode(". Under the system recommended in the Diamond Review(note: it's implementation is not guaranteed), you would be eligible for a grant of £"+ (8100-newAmount) + " and a £"+ (8100 - (8100-newAmount))+" loan. Your total eligible maintenance available funds would be £8,100.")
   var p = document.createElement('p');
   var body = document.getElementsByTagName('body')[0];
   p.appendChild(textOld);
