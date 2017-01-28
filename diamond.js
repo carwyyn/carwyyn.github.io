@@ -100,8 +100,8 @@ function running(){
         reduction = reduction + 1;
         count = count + 8.821126761;
       };
-      if (reduction > 8100){
-        reduction = 8100;
+      if (reduction > 7100){
+        reduction = 7100;
       };
       return reduction;
     };
