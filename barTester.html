@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+</head>
+<body>
+
+</div>
+<style>#chart{width:500px; height:500px;}.cell {
+  border: solid 1px white;
+  font: 10px sans-serif;
+  line-height: 12px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
+}
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+</style>
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
+<script src="d3plus.js"></script>
+<script>
+var w = 500;
+var h = 500;
+var padding = 10;
+
+
+var svg = d3.select("body").append("svg")
+                                    .attr("width", w)
+                                    .attr("height", h);
+
+d3.csv("year.csv", function(data){
+
+  var yScale = d3.scale.linear()
+                        .domain([0, d3.max(data, function(d){return d.amount})])
+                        .range([0, h-padding-60]);
+
+  var x = d3.scale.ordinal().rangeRoundBands([0, w], .05)
+  .domain(data.map(function(d) { return d.financial_year; }));
+
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom")
+      .ticks(5);
+
+
+  svg.selectAll('rect')
+     .data(data)
+     .enter()
+     .append('rect')
+     .attr('x', function(d,i){
+       return i * 2
+     })
+     .attr('y', function(d){
+       return (h-60)-yScale(d.amount);
+     })
+     .attr('width', function(d){
+       return ((w - data.length*2) / data.length)
+     })
+     .attr('height', function(d){
+       return yScale(d.amount);
+     })
+     .on("click", detail);
+
+     svg.append("g")
+         .attr("class", "x axis")
+         .attr("transform", "translate(0," + (h-60) + ")")
+         .call(xAxis)
+       .selectAll("text")
+         .style("text-anchor", "end")
+         .attr("dx", "-.8em")
+         .attr("dy", "-.55em")
+         .attr("transform", "rotate(-90)" );
+
+
+});
+
+
+function detail(d){
+
+  d3.csv("memberTotal.csv", function(member){
+
+
+});
+};
+
+</script>
+
+
+
+</body>
+
+
+</html>
